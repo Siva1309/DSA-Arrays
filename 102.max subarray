@@ -185,3 +185,27 @@ Let's find the **maximum sum of a contiguous subarray** in the given array using
 - The subarray is `[4, -1, 2, 1]` because the sum of these elements is `4 + (-1) + 2 + 1 = 6`.
 
 Thus, the maximum subarray sum is **6**, and the subarray that gives this sum is **[4, -1, 2, 1]**.
+
+
+
+
+Kadane's Algorithm Formula
+Kadane’s algorithm is used to find the maximum sum of a contiguous subarray within a one-dimensional array of numbers. The key idea is to traverse the array from left to right, calculating the maximum sum of subarrays ending at each position.
+
+The algorithm maintains two variables:
+
+current_sum: The maximum sum of subarrays ending at the current position.
+best_sum: The maximum sum found so far.
+The formula for updating current_sum at each step is:
+
+current_sum=max(current_sum+arr[i],arr[i])
+
+This formula considers two choices:
+
+Extending the current subarray by adding the current element.
+Starting a new subarray from the current element.
+The best_sum is updated as follows:
+
+best_sum=max(best_sum,current_sum)
+
+At the end of the iteration, best_sum contains the maximum sum of any contiguous subarray within the array.
