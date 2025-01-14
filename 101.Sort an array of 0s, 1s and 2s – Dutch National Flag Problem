@@ -1,0 +1,187 @@
+class Solution {
+  public:
+    void sort012(vector<int>& arr) {
+        // code here
+        int low = 0,mid=0,high=arr.size()-1;
+        
+        while(mid<=high)
+        {
+            if(arr[mid]==0)
+            {
+                swap(arr[low++],arr[mid++]);
+            }
+            else if(arr[mid]==1)
+            {
+                mid++;
+                //swap(arr[low++],arr[mid++]);
+            }
+            else
+            {
+                swap(arr[mid],arr[high--]);
+            }
+        }
+    }
+};
+
+
+Let's break down the **step-by-step** iteration of the `sort012` function using an example:
+
+### Initial Setup:
+We will use the following array:  
+`arr = [1, 0, 2, 1, 0, 2, 1, 0]`
+
+- **Pointers:**  
+  - `low = 0`  
+  - `mid = 0`  
+  - `high = 7` (array size - 1)
+
+The goal is to sort the array so that all `0`s come at the beginning, all `1`s come in the middle, and all `2`s come at the end. 
+
+### Array before sorting:
+`arr = [1, 0, 2, 1, 0, 2, 1, 0]`
+
+---
+
+### Iteration 1:
+
+- **Current state:**  
+  `low = 0`, `mid = 0`, `high = 7`  
+  `arr[mid] = 1` (since `arr[0] = 1`)
+
+- **Action:**  
+  - Since `arr[mid] == 1`, no swapping is needed, and `mid` is incremented to 1.
+  
+- **Updated state:**  
+  `low = 0`, `mid = 1`, `high = 7`  
+  Array remains the same: `[1, 0, 2, 1, 0, 2, 1, 0]`
+
+---
+
+### Iteration 2:
+
+- **Current state:**  
+  `low = 0`, `mid = 1`, `high = 7`  
+  `arr[mid] = 0` (since `arr[1] = 0`)
+
+- **Action:**  
+  - Since `arr[mid] == 0`, we swap `arr[low]` and `arr[mid]` (i.e., swap `arr[0]` and `arr[1]`).
+  - After the swap, we increment both `low` and `mid`.
+  
+- **Updated state:**  
+  `low = 1`, `mid = 2`, `high = 7`  
+  Array after swap: `[0, 1, 2, 1, 0, 2, 1, 0]`
+
+---
+
+### Iteration 3:
+
+- **Current state:**  
+  `low = 1`, `mid = 2`, `high = 7`  
+  `arr[mid] = 2` (since `arr[2] = 2`)
+
+- **Action:**  
+  - Since `arr[mid] == 2`, we swap `arr[mid]` and `arr[high]` (i.e., swap `arr[2]` and `arr[7]`).
+  - After the swap, we decrement `high`, but do **not** increment `mid` because the swapped element (which was originally `arr[7]`) still needs to be checked.
+  
+- **Updated state:**  
+  `low = 1`, `mid = 2`, `high = 6`  
+  Array after swap: `[0, 1, 0, 1, 0, 2, 1, 2]`
+
+---
+
+### Iteration 4:
+
+- **Current state:**  
+  `low = 1`, `mid = 2`, `high = 6`  
+  `arr[mid] = 0` (since `arr[2] = 0`)
+
+- **Action:**  
+  - Since `arr[mid] == 0`, we swap `arr[low]` and `arr[mid]` (i.e., swap `arr[1]` and `arr[2]`).
+  - After the swap, we increment both `low` and `mid`.
+  
+- **Updated state:**  
+  `low = 2`, `mid = 3`, `high = 6`  
+  Array after swap: `[0, 0, 1, 1, 0, 2, 1, 2]`
+
+---
+
+### Iteration 5:
+
+- **Current state:**  
+  `low = 2`, `mid = 3`, `high = 6`  
+  `arr[mid] = 1` (since `arr[3] = 1`)
+
+- **Action:**  
+  - Since `arr[mid] == 1`, no swapping is needed, and we increment `mid`.
+  
+- **Updated state:**  
+  `low = 2`, `mid = 4`, `high = 6`  
+  Array remains the same: `[0, 0, 1, 1, 0, 2, 1, 2]`
+
+---
+
+### Iteration 6:
+
+- **Current state:**  
+  `low = 2`, `mid = 4`, `high = 6`  
+  `arr[mid] = 0` (since `arr[4] = 0`)
+
+- **Action:**  
+  - Since `arr[mid] == 0`, we swap `arr[low]` and `arr[mid]` (i.e., swap `arr[2]` and `arr[4]`).
+  - After the swap, we increment both `low` and `mid`.
+  
+- **Updated state:**  
+  `low = 3`, `mid = 5`, `high = 6`  
+  Array after swap: `[0, 0, 0, 1, 1, 2, 1, 2]`
+
+---
+
+### Iteration 7:
+
+- **Current state:**  
+  `low = 3`, `mid = 5`, `high = 6`  
+  `arr[mid] = 2` (since `arr[5] = 2`)
+
+- **Action:**  
+  - Since `arr[mid] == 2`, we swap `arr[mid]` and `arr[high]` (i.e., swap `arr[5]` and `arr[6]`).
+  - After the swap, we decrement `high`, but do **not** increment `mid` because the swapped element still needs to be checked.
+  
+- **Updated state:**  
+  `low = 3`, `mid = 5`, `high = 5`  
+  Array after swap: `[0, 0, 0, 1, 1, 1, 2, 2]`
+
+---
+
+### Iteration 8:
+
+- **Current state:**  
+  `low = 3`, `mid = 5`, `high = 5`  
+  `arr[mid] = 1` (since `arr[5] = 1`)
+
+- **Action:**  
+  - Since `arr[mid] == 1`, no swapping is needed, and we increment `mid`.
+  
+- **Updated state:**  
+  `low = 3`, `mid = 6`, `high = 5`
+
+- Now, since `mid > high`, the loop terminates.
+
+---
+
+### Final Array:
+
+After the loop terminates, the array is fully sorted:
+`arr = [0, 0, 0, 1, 1, 1, 2, 2]`
+
+### Summary of Iterations:
+
+1. **Swap `arr[low]` and `arr[mid]` when `arr[mid] == 0`.**  
+   (Move `0` to the beginning and increment both `low` and `mid`.)
+
+2. **Increment `mid` when `arr[mid] == 1`.**  
+   (No change needed, just move on.)
+
+3. **Swap `arr[mid]` and `arr[high]` when `arr[mid] == 2`.**  
+   (Move `2` to the end and decrement `high`. Don't increment `mid` because we swapped a `2` into the middle and need to recheck it.)
+
+In the end, the array is sorted in a single pass through the array with a time complexity of **O(n)** and space complexity of **O(1)**.
