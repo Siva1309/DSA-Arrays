@@ -1,0 +1,128 @@
+class Solution {
+  public:
+    // Function to find the sum of contiguous subarray with maximum sum.
+    int maxSubarraySum(vector<int> &arr) {
+        // code here...
+        int max_sum=arr[0];
+        int sum=0;
+        for(int it: arr)
+        {
+            sum=max(it,sum+it);
+            max_sum=max(max_sum,sum);
+        }
+        return max_sum;
+    }
+};
+
+The provided code implements **Kadane's Algorithm**, which is an efficient way to find the **maximum sum of a contiguous subarray** in an array. Let me explain this code step by step to give you a clearer understanding:
+
+### Purpose:
+The function `maxSubarraySum` takes a vector `arr` and returns the sum of the contiguous subarray that has the maximum sum.
+
+### Code Explanation:
+
+```cpp
+class Solution {
+  public:
+    int maxSubarraySum(vector<int> &arr) {
+        int max_sum = arr[0];  // Initialize the maximum sum as the first element of the array
+        int sum = 0;  // Initialize the sum variable that will hold the current subarray sum
+
+        for(int it : arr) {  // Iterate through each element in the array
+            sum = max(it, sum + it);  // Calculate the maximum of two values:
+                                      // 1. The current element itself (start new subarray).
+                                      // 2. The sum of the current subarray including the current element (extend the current subarray).
+            
+            max_sum = max(max_sum, sum);  // Update the max_sum with the larger of the current max_sum or the new sum.
+        }
+        
+        return max_sum;  // Return the final result, which is the maximum sum of any contiguous subarray.
+    }
+};
+```
+
+### Key Variables:
+
+1. **`max_sum`**: This variable keeps track of the maximum sum encountered so far. It's initialized to the first element of the array (`arr[0]`) because the subarray must have at least one element.
+
+2. **`sum`**: This variable keeps track of the current sum of the subarray being considered. It starts at `0` and is updated at each step of the loop.
+
+### Core Logic:
+
+#### 1. `sum = max(it, sum + it);`
+- **Explanation**:  
+  This line is the key part of Kadane's Algorithm. It checks two possibilities for the current subarray sum:
+  - `it`: The current element itself. This is effectively starting a new subarray from this element.
+  - `sum + it`: Adding the current element (`it`) to the sum of the previous subarray. This is extending the current subarray by including this element.
+
+  We choose the maximum of these two options to decide whether to:
+  - Start a new subarray (if the current element alone is larger), or
+  - Continue adding the current element to the existing subarray.
+
+#### 2. `max_sum = max(max_sum, sum);`
+- **Explanation**:  
+  After updating the `sum` for the current element, we check if `sum` is larger than `max_sum`. If it is, we update `max_sum` to reflect the new largest sum found so far.
+
+#### 3. Iterating through the entire array:
+- The loop `for(int it : arr)` iterates over all elements in the array, updating the current subarray sum and checking if it is the maximum sum seen so far.
+
+### Example Walkthrough:
+
+Let’s walk through an example:
+
+#### Input Array:
+`arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]`
+
+#### Step-by-Step Execution:
+
+1. **Initialization**:  
+   - `max_sum = -2` (first element)  
+   - `sum = 0`
+
+2. **First Iteration** (`it = -2`):
+   - `sum = max(-2, 0 + (-2)) = -2`
+   - `max_sum = max(-2, -2) = -2`
+   
+3. **Second Iteration** (`it = 1`):
+   - `sum = max(1, -2 + 1) = 1`
+   - `max_sum = max(-2, 1) = 1`
+   
+4. **Third Iteration** (`it = -3`):
+   - `sum = max(-3, 1 + (-3)) = -2`
+   - `max_sum = max(1, -2) = 1`
+   
+5. **Fourth Iteration** (`it = 4`):
+   - `sum = max(4, -2 + 4) = 4`
+   - `max_sum = max(1, 4) = 4`
+   
+6. **Fifth Iteration** (`it = -1`):
+   - `sum = max(-1, 4 + (-1)) = 3`
+   - `max_sum = max(4, 3) = 4`
+   
+7. **Sixth Iteration** (`it = 2`):
+   - `sum = max(2, 3 + 2) = 5`
+   - `max_sum = max(4, 5) = 5`
+   
+8. **Seventh Iteration** (`it = 1`):
+   - `sum = max(1, 5 + 1) = 6`
+   - `max_sum = max(5, 6) = 6`
+   
+9. **Eighth Iteration** (`it = -5`):
+   - `sum = max(-5, 6 + (-5)) = 1`
+   - `max_sum = max(6, 1) = 6`
+   
+10. **Ninth Iteration** (`it = 4`):
+    - `sum = max(4, 1 + 4) = 5`
+    - `max_sum = max(6, 5) = 6`
+
+#### Final Result:
+- `max_sum = 6`, which is the maximum sum of any contiguous subarray.
+
+### Time Complexity:
+- **O(n)**: The algorithm iterates over the array once, performing constant-time operations at each step. Therefore, the time complexity is linear in terms of the number of elements `n` in the array.
+
+### Space Complexity:
+- **O(1)**: The algorithm only uses a few extra variables (`max_sum`, `sum`), so the space complexity is constant.
+
+### Conclusion:
+The function efficiently calculates the maximum sum of any contiguous subarray in the array using Kadane's Algorithm, with a time complexity of O(n) and a space complexity of O(1).
