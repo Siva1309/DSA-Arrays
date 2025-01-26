@@ -1,0 +1,24 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
+class Solution {
+    static ArrayList<Integer> leaders(int arr[]) {
+        // Create an ArrayList to store the leaders
+        ArrayList<Integer> arrList = new ArrayList<>();
+        
+        int max = arr[arr.length - 1];
+        arrList.add(arr[arr.length - 1]); // Add the last element to the list as it's always a leader
+        
+        // Traverse the array from right to left
+        for (int i = arr.length - 2; i >= 0; i--) {
+            if (arr[i] >= max) {
+                arrList.add(arr[i]); // Add the leader to the list
+                max = arr[i]; // Update max
+            }
+        }
+        
+        // Reverse the list to maintain the order as in the original array
+        Collections.reverse(arrList);
+        return arrList;
+    }
+}
